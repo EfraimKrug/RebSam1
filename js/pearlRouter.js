@@ -6,7 +6,10 @@
 var DataRouter = Backbone.Router.extend({
     routes:{
         "": "displayAuthor",
-		"": "displayUser"
+		"": "displayText",
+		"": "displayUser",
+		"": "dipslayTextByAuthor",
+		"": "displayCitation"
     },
     displayAuthor: function() {
         var authorCollection = new AuthorCollection(); 
@@ -30,6 +33,31 @@ var DataRouter = Backbone.Router.extend({
 			}
 		});
     },
+
+    displayCitation: function(authNum) {
+		var textByAuthorCollection = new TextByAuthorCollection(authNum); 
+		var citationListView = new CitationListView({model:textByAuthorCollection});
+		var textModel = new TextModel();
+        var citationListItemView = new CitationListItemView({model:textModel});
+		textByAuthorCollection.fetch({
+			success: function () {
+					$('#UserList').html(citationListView.render().el);
+			}
+		});
+    },
+	
+    displayTextByAuthor: function(authNum) {
+        var textByAuthorCollection = new TextByAuthorCollection(authNum); 
+		var textListView = new TextListView({model:textByAuthorCollection});
+		var textModel = new TextModel();
+        var textListItemView = new TextListItemView({model:textModel});
+		textByAuthorCollection.fetch({
+			success: function () {
+					$('#TextList').html(textListView.render().el);
+			}
+		});
+    },
+
     displayUser: function() {
         var userCollection = new UserCollection(); 
 		var userListView = new UserListView({model:userCollection});

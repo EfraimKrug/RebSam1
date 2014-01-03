@@ -44,19 +44,34 @@ p.intro span.he {
 <!-- Beginning of actual web page -->
 <div id="wrapper">
 	<div id="header"><!--  BEGIN DOCUMENT MENU ----------------->
-	Rabbi Sam's Web Site on T'fillah
+	Kavanah is everything. The revival of kavanah is the revival of the world…
+Every act that perfects the world is embraced in it.
+<br><font size=-1>Rabbi Abraham Isaac Kook</font>
+	<div class="card" id="c01"></div>
+	<div class="card" id="c02"></div>
+	<div class="card" id="c03"></div>
+	<div class="card" id="c04"></div>
+	<div class="card" id="c05"></div>
+	<div class="card" id="c06"></div>
+	<div class="card" id="c07"></div>
+	<div class="card" id="c08"></div>
+	<div class="card" id="c09"></div>
+	<div class="card" id="c10"></div>
+	<div class="card" id="c11"></div>
+	<div class="card" id="c12"></div>
+	
 	<div class="container"> 
 	</div> <!-- #container --> 
 	</div><!--             END DOCUMENT MENU  ------------------>
 	<div id="content">
 		<div id="AuthorList">content Left...</div>
-		<div id="contentMain">They say that where there is smoke, there is fire... but come on! Wake up and smell the coffee... if it were true, nobody would have to say it! It must be wishful thinking. </div>
-		<div id="UserList">CONTENT RIGHT  R RRRRRR RRRR RRRR R RRRRR RRRR RRRRR RR RR RR RRRRRRRR RRRRR RRRRR RRRR RR RRRRR RRRRR RRR RRRRRR</div>
+		<div id="contentMain"></div>
+		<div id="UserList"></div>
 	</div>
 	<div id="FloatOver"></div>
 	<div id="FloatOver2"></div>
-	<div id="TextList">FOOTER FFFFFFF FFFF FFFFFFFFFF FFFFFFFFFF FFFFF FFFF FFFFFF FFFF FFF FFFF FFFFF FFFFFF FFF FF</div>
-	<div id="bottom"><div class='he' style='clear:both'><p>תִּקנְתָּ שַׁבָּת רָצִיתָ קָרְבְּנוֹתֶיהָ</p></div></div>
+	<div id="TextList"></div>
+	<div id="bottom"><div class='he' style='clear:both'><!-- <p>תִּקנְתָּ שַׁבָּת רָצִיתָ קָרְבְּנוֹתֶיהָ</p> --></div></div>
 </div>
 <!-- End of actual web page -->
     <!-- Templates -->
@@ -73,9 +88,11 @@ p.intro span.he {
     </script>
     <script type="text/template" id="TextTemplate">
         <clickText><div id='TTtext' class='he' style='clear:both'><font face='Ezra Sil'><%= PCTEXT %></font></div></clickText><br>
+		<!--
 	    <div id='TTtranslation'><%= PCTRANSLATION %></div><br>
         <div id='TTtransliteration'><%= PCTRANSLITERATION %></div><br>
 		<div id='TTparush'><%= PCPARUSH %></div>
+		-->
     </script>
     <script type="text/template" id="EventTemplate">
 		<%= title %> <%= institution %><br>
@@ -87,7 +104,11 @@ p.intro span.he {
         <%= startdate %> through <%= enddate %><br>
 		<%= starttime %> - <%= endtime %>
     </script>
+	<script type="text/template" id="CitationTemplate">
+		<%= PCCITATION %> 
+    </script>
 
+	
     <!-- JavaScript -->
     <script src="js/jquery.min.js"></script>
     <script src="js/underscore-min.js"></script>
@@ -100,9 +121,10 @@ p.intro span.he {
 <script>
 var dataRouter = new DataRouter();
 dataRouter.displayAuthor();
-dataRouter.displayUser();
-dataRouter.displayText();
+//dataRouter.displayUser();
+//dataRouter.displayText();
 		
+//alert(Backbone.VERSION);
 Backbone.history.start();
 </script>
 </body>

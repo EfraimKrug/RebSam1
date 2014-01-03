@@ -37,6 +37,17 @@ body {
 		text-align:center;
 	}
 
+	.card {
+		position: absolute;
+		top:0px;
+		left: 0px;
+		border:0px solid #fff;
+		height:0px;
+		width:0px;
+		padding:0px;
+		text-align:center;
+	}
+	
 	#header {
 		border:0px solid #bbb;
 		height:80px;
@@ -154,7 +165,7 @@ body {
 	#FloatOver {
 		position: absolute;
 		left:459px;
-		top:385px;
+		top:355px;
 		width:250px;
 		height:250px;
 
