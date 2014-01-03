@@ -27,7 +27,24 @@ var TextModel = Backbone.Model.extend({
 		PCTRANSLITERATION: "transliterate transliterate transliterate",
 		PCPARUSH: "Explain explain explain",
 		PCCITATION: "Place:Perek-verse",
-		PCAUTHORID: 0,
+		PCAUTHORID: 0
+		}
+	});
+
+var _MenuModel = Backbone.Model.extend({
+    defaults: {
+		MENU1: "Shacharit",
+		MENU2: "Mincha",
+		MENU3: "Maariv",
+		MENU4: "KabbalatShabbat"
+		}
+	});
+
+var Menu2Model = Backbone.Model.extend({
+    defaults: {
+		PCMENUNAME: "Shacharit",
+		PCLABEL: "Shacharit",
+		PCCONNECTION: "Shacharit.html"
 		}
 	});
 	
@@ -52,10 +69,41 @@ var TextCollection = Backbone.Collection.extend({
 var TextByAuthorCollection = Backbone.Collection.extend({
     model: TextModel,
 	authorNumber: 0,
-	getAuthorNumber: function(){ return this.authorNumber; },
+	//getAuthorNumber: function(){ return this.authorNumber; },
 	setAuthorNumber: function(authNum){ this.authorNumber = authNum; },
 	setURL: function(authNum){ this.url = "api/getDBInfo.php?usage=PCTextByAuthor&PCAUTHOR=" + authNum; },
 	initialize: function(authNum){ this.setURL(authNum); this.authorNumber = authNum; }, //this.authorNumber = authNum;},
-	getURL: function(){ return this.url; },
+	//getURL: function(){ return this.url; },
 	url: "api/getDBInfo.php?usage=PCTextByAuthor&PCAUTHOR=" + this.authorNumber
+});
+
+var Menu2Collection = Backbone.Collection.extend({
+    model: Menu2Model,
+	usage: 'Shacharis',
+	setUsage: function(usage){ this.usage = usage; },
+	setURL: function(usage){this.url = "api/getDBInfo.php?usage=PCMenu&PCMENUSELECT=" + usage; },
+	getURL: function() { return this.url; },
+	getUsage: function() { return this.usage; },
+	initialize: function(usage){ this.setUsage(usage); this.setURL(usage);},
+	url: "api/getDBInfo.php?usage=PCMenu&PCMENUSELECT=" + this.usage
+});
+
+var ShacharisCollection = Backbone.Collection.extend({
+    model: Menu2Model,
+	url: "api/getMenu.php?usage=Shacharis"
+});
+
+var MinchaCollection = Backbone.Collection.extend({
+    model: Menu2Model,
+	url: "api/getMenu.php?usage=Mincha"
+});
+
+var MaarivCollection = Backbone.Collection.extend({
+    model: Menu2Model,
+	url: "api/getMenu.php?usage=Maariv"
+});
+
+var KabbalatShabbatCollection = Backbone.Collection.extend({
+    model: Menu2Model,
+	url: "api/getMenu.php?usage=KabbalatShabbat"
 });

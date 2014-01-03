@@ -20,13 +20,8 @@ var AuthorListItemView = Backbone.View.extend({
 		var id = this.model.get("PCAUTHORID");
 		var dRouter = new DataRouter();
 		dRouter.displayTextByAuthor(id);
-		//$('#UserList').html("Fine - just fine!");
 		dRouter.displayCitation(id);
-		//alert(this.model.get("PCLNAME"));
-		// get list of possible divrei torah...
-		//this.model.on('goNuts', function(){alert("going nuts");});
-		//this.model.trigger('goNuts');
-		//$('#UserList').html("Fine - just fine!");
+		//dRouter.displayMenu2('Shachar');
 		},
 		
 	doit: function(){
@@ -81,7 +76,17 @@ var UserListItemView = Backbone.View.extend({
 var UserListView = Backbone.View.extend({
  
     tagName: "div",
-     
+
+	events: {
+		'dblclick clickuser' : 'destroy'
+		},
+		
+	destroy: function() {
+		$('#floatingMenu').css("height", 0);
+		$('#floatingMenu').css("width", 0);
+		$('#floatingMenu').css("border", "0px solid red");
+	},
+	
     render: function(eventName) {
         _.each(this.model.models, function (mdl) {
             $(this.el).append(new UserListItemView({model:mdl}).render().el);
@@ -114,8 +119,6 @@ var TextListItemView = Backbone.View.extend({
 		var l = s.length;	// 50 char per line & 18 px / line
 		var h = (l/54) * 20;
 		$('#FloatOver').css("height", h);	// 54
-		//var x = s.length();
-		//alert(x);
 		$('#FloatOver').html(this.model.get('PCTRANSLATION'));
 		$('#FloatOver').css("border", "2px solid #bbb");
 		$('#FloatOver').css("padding", "5px");
@@ -190,3 +193,63 @@ var CitationListView = Backbone.View.extend({
     }
 	
 });
+
+/**
+ * MENU2 VIEWS 
+ **/
+var Menu2ListItemView = Backbone.View.extend({
+ 
+    tagName:"p",
+ 
+    template:_.template($('#Menu2Template').html()),
+	
+	events: {
+		'click clickMenu' : 'menu'
+		},
+
+	menu: function(){ 
+		var usageHold = this.model.get('PCMENUNAME'); 
+		this.setUsage(usageHold);
+		},
+		
+    render:function (eventName) {
+        $(this.el).html(this.template(this.model.toJSON()));
+        return this;
+    }
+ 
+});
+ 
+var Menu2ListView = Backbone.View.extend({
+ 
+    tagName: "ul",
+	usage: 'Shacharis',	
+	setUsage: function(usage) { this.usage = usage; },
+	getUsage: function() { return this.usage; },
+
+	initialize: function() {
+		$('#floatingMenu').css("height", 256);
+		$('#floatingMenu').css("left", 996);
+		$('#floatingMenu').css("top", 56);
+		$('#floatingMenu').css("width", 365);
+		$('#floatingMenu').css("z-index", 0);
+		$('#floatingMenu').css("background-color", "cyan");
+		$('#floatingMenu').css("color", "blue");
+		$('#floatingMenu').css("border", "4px solid red");
+	},
+
+	destroy: function() {
+		$('#floatingMenu').css("height", 0);
+		$('#floatingMenu').css("width", 0);
+		$('#floatingMenu').css("border", "0px solid red");
+	},
+	
+    render: function(eventName) {
+        _.each(this.model.models, function (mdl) {
+			alert("rendering entry in list");
+            $(this.el).append(new Menu2ListItemView({model:mdl}).render().el);
+        }, this);
+        return this;
+    }
+	
+});
+

@@ -1,0 +1,29 @@
+.he, .he p {
+	font-family : Ezra Sil, Ezra Sil SR, CODE2000, Times New Roman, times, serif;
+	direction : rtl;
+}
+
+div.he, .he p {
+	font-size : x-large;
+	margin : 0px auto;
+}
+div.he {
+	padding : 6px;
+}
+/* table {
+border : 1px #FF9900 solid;
+border-collapse : collapse;
+}
+h3 {
+text-align: center;
+background-color : #FFFFCC;
+width:100%;
+margin-top :1em;
+padding : 4px;
+}
+p.intro span.he {
+	font-weight : bold;
+	font-size : large;
+}
+*/
+

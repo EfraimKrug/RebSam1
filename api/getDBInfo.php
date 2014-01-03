@@ -9,18 +9,26 @@ $authorNumber = 0;
 if(isset($_GET['PCAUTHOR'])){
 	$authorNumber = $_GET['PCAUTHOR'];
 	}
-
+	
+$menuSelect = "Shachar";
+if(isset($_GET['PCMENUSELECT'])){
+	$menuSelect = $_GET['PCMENUSELECT'];
+	}
+	
 if($usage == "PCUser"){
 	$sql = "select * FROM PCUser ORDER BY PCLNAME";
 } elseif ($usage == "PCAuthor"){
 	$sql = "select * FROM PCAuthor ORDER BY PCLNAME";
 } elseif ($usage == "PCText"){
 	$sql = "select * FROM PCText T, PCParush P WHERE P.PCTEXTID = T.PCTEXTID";
+} elseif ($usage == "PCMenu"){
+	$sql = "select * FROM PCMenu WHERE PCMENUNAME = '" . $menuSelect . "'";
 } elseif ($usage == "PCTextByAuthor"){
 	$sql = "select * FROM PCText T, PCParush P WHERE P.PCTEXTID = T.PCTEXTID AND T.PCAUTHORID = " . $authorNumber;
 } else {
 	$sql = "select * FROM PCUser ORDER BY PCLNAME";
 }
+
 getMessages();
 function getMessages() {
 	$sql = $GLOBALS["sql"];
