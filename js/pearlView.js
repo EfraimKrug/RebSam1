@@ -28,15 +28,20 @@ var AuthorListItemView = Backbone.View.extend({
 		var fnameHold = this.model.get('PCFNAME');
 		var lnameHold = this.model.get('PCLNAME');
 		var titleHold = this.model.get('PCTITLE');
-		this.model.set("PCLNAME", "OOPS");
+		var phoneHold = this.model.get('PCPHONE');
+		var email = this.model.get('PCEMAIL');
+		var phoneHold1 = phoneHold.substr(0,3);
+		var phoneHold2 = phoneHold.substr(3,3);
+		var phoneHold3 = phoneHold.substr(6,4);
+		//this.model.set("PCLNAME", "OOPS");
 		
 		this.render();
-		$('#FloatOver').html("Come on... deal with your problems, huh? " + titleHold + " " + fnameHold + " " + lnameHold);		
+		$('#FloatOver').html("Get in touch: " + titleHold + " " + fnameHold + " " + lnameHold + "<br>Phone: " + phoneHold1 + "-" + phoneHold2 + "-" + phoneHold3 + "<br>Email: " + email);		
 		},
 
     render:function (eventName) {
         $(this.el).html(this.template(this.model.toJSON()));
-		$(this.el).append("<button id='changeAuthor'>Change Stuff</button>");
+		$(this.el).append("<button id='changeAuthor'>Explanations on...</button>");
         return this;
     }
  
@@ -139,6 +144,11 @@ var TextListItemView = Backbone.View.extend({
 		$('#FloatOver').css("height", "0");
 		$('#FloatOver').css("border", "0px solid #bbb");
 		$('#FloatOver').css("padding", "0px");
+
+		$('#floatingMenu').html("");
+		$('#floatingMenu').css("height", "0");
+		$('#floatingMenu').css("border", "0px solid #bbb");
+		$('#floatingMenu').css("padding", "0px");
 		
 		$('#FloatOver2').html("");
 		$('#FloatOver2').css("height", "0");
@@ -173,6 +183,27 @@ var CitationListItemView = Backbone.View.extend({
     //tagName:"p",
  
     template:_.template($('#CitationTemplate').html()),
+	
+	events: {
+		'click clickCitation' : 'showIt'
+		},
+		
+	 showIt: function(){
+		parush = this.model.get("PCPARUSH");
+		citation = this.model.get("PCCITATION");
+		len = parush.length;
+		hgt = 104 + len;
+		$('#floatingMenu').css("height", hgt);
+		$('#floatingMenu').css("left", 996);
+		$('#floatingMenu').css("top", 56);
+		$('#floatingMenu').css("width", 365);
+		$('#floatingMenu').css("z-index", 0);
+		$('#floatingMenu').css("background-color", "cyan");
+		$('#floatingMenu').css("color", "blue");
+		$('#floatingMenu').css("border", "4px solid red");
+		$('#floatingMenu').css("text-align", "left");
+		$('#floatingMenu').html("<h5>" + citation + "</h5>" + parush);
+		},
 		
      render:function (eventName) {
         $(this.el).html(this.template(this.model.toJSON()));
@@ -193,63 +224,3 @@ var CitationListView = Backbone.View.extend({
     }
 	
 });
-
-/**
- * MENU2 VIEWS 
- **/
-var Menu2ListItemView = Backbone.View.extend({
- 
-    tagName:"p",
- 
-    template:_.template($('#Menu2Template').html()),
-	
-	events: {
-		'click clickMenu' : 'menu'
-		},
-
-	menu: function(){ 
-		var usageHold = this.model.get('PCMENUNAME'); 
-		this.setUsage(usageHold);
-		},
-		
-    render:function (eventName) {
-        $(this.el).html(this.template(this.model.toJSON()));
-        return this;
-    }
- 
-});
- 
-var Menu2ListView = Backbone.View.extend({
- 
-    tagName: "ul",
-	usage: 'Shacharis',	
-	setUsage: function(usage) { this.usage = usage; },
-	getUsage: function() { return this.usage; },
-
-	initialize: function() {
-		$('#floatingMenu').css("height", 256);
-		$('#floatingMenu').css("left", 996);
-		$('#floatingMenu').css("top", 56);
-		$('#floatingMenu').css("width", 365);
-		$('#floatingMenu').css("z-index", 0);
-		$('#floatingMenu').css("background-color", "cyan");
-		$('#floatingMenu').css("color", "blue");
-		$('#floatingMenu').css("border", "4px solid red");
-	},
-
-	destroy: function() {
-		$('#floatingMenu').css("height", 0);
-		$('#floatingMenu').css("width", 0);
-		$('#floatingMenu').css("border", "0px solid red");
-	},
-	
-    render: function(eventName) {
-        _.each(this.model.models, function (mdl) {
-			alert("rendering entry in list");
-            $(this.el).append(new Menu2ListItemView({model:mdl}).render().el);
-        }, this);
-        return this;
-    }
-	
-});
-

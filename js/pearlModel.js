@@ -31,22 +31,6 @@ var TextModel = Backbone.Model.extend({
 		}
 	});
 
-var _MenuModel = Backbone.Model.extend({
-    defaults: {
-		MENU1: "Shacharit",
-		MENU2: "Mincha",
-		MENU3: "Maariv",
-		MENU4: "KabbalatShabbat"
-		}
-	});
-
-var Menu2Model = Backbone.Model.extend({
-    defaults: {
-		PCMENUNAME: "Shacharit",
-		PCLABEL: "Shacharit",
-		PCCONNECTION: "Shacharit.html"
-		}
-	});
 	
 /**
  * Collection of Models
@@ -77,33 +61,3 @@ var TextByAuthorCollection = Backbone.Collection.extend({
 	url: "api/getDBInfo.php?usage=PCTextByAuthor&PCAUTHOR=" + this.authorNumber
 });
 
-var Menu2Collection = Backbone.Collection.extend({
-    model: Menu2Model,
-	usage: 'Shacharis',
-	setUsage: function(usage){ this.usage = usage; },
-	setURL: function(usage){this.url = "api/getDBInfo.php?usage=PCMenu&PCMENUSELECT=" + usage; },
-	getURL: function() { return this.url; },
-	getUsage: function() { return this.usage; },
-	initialize: function(usage){ this.setUsage(usage); this.setURL(usage);},
-	url: "api/getDBInfo.php?usage=PCMenu&PCMENUSELECT=" + this.usage
-});
-
-var ShacharisCollection = Backbone.Collection.extend({
-    model: Menu2Model,
-	url: "api/getMenu.php?usage=Shacharis"
-});
-
-var MinchaCollection = Backbone.Collection.extend({
-    model: Menu2Model,
-	url: "api/getMenu.php?usage=Mincha"
-});
-
-var MaarivCollection = Backbone.Collection.extend({
-    model: Menu2Model,
-	url: "api/getMenu.php?usage=Maariv"
-});
-
-var KabbalatShabbatCollection = Backbone.Collection.extend({
-    model: Menu2Model,
-	url: "api/getMenu.php?usage=KabbalatShabbat"
-});

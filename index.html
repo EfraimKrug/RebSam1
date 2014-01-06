@@ -1,51 +1,110 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="he">
 <head>
-    <title>php backbone working with model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Language" content="he, en">
+
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title lang="en">T'fillah Project...</title>
+<link rel="stylesheet" href="css/pearl.css">
+<link rel="stylesheet" href="css/pearlHebrew.css">
+<script>
+function go(){
+	var dRouter = new DataRouter();
+	dRouter.displayMenu2('Shachar');
+	}
+</script>
 </head>
-<body>    
-
-    <div id="msg"></div>
-
+<body>  
+<!-- Beginning of actual web page -->
+<div id="wrapper">
+	<div id="header"><!--  BEGIN DOCUMENT MENU ----------------->
+	Kavanah is everything. The revival of kavanah is the revival of the world…
+Every act that perfects the world is embraced in it.
+<br><font size=-1>Rabbi Abraham Isaac Kook</font>
+	<div class="card" id="floatingMenu"></div>
+	<div class="card" id="c01"></div>
+	<div class="card" id="c02"></div>
+	<div class="card" id="c03"></div>
+	<div class="card" id="c04"></div>
+	<div class="card" id="c05"></div>
+	<div class="card" id="c06"></div>
+	<div class="card" id="c07"></div>
+	<div class="card" id="c08"></div>
+	<div class="card" id="c09"></div>
+	<div class="card" id="c10"></div>
+	<div class="card" id="c11"></div>
+	<div class="card" id="c12"></div>
+	
+	<div class="container"> 
+	</div> <!-- #container --> 
+	</div><!--             END DOCUMENT MENU  ------------------>
+	<div id="content">
+		<div id="AuthorList">content Left...</div>
+		<div id="contentMain"></div>
+		<div id="UserList"></div>
+	</div>
+	<div id="FloatOver"></div>
+	<div id="FloatOver2"></div>
+	<div id="TextList"></div>
+	<div id="bottom"><div class='he' style='clear:both'><!-- <p>תִּקנְתָּ שַׁבָּת רָצִיתָ קָרְבְּנוֹתֶיהָ</p> --></div></div>
+</div>
+<!-- End of actual web page -->
     <!-- Templates -->
-    <script type="text/template" id="tpl-hello-backbone">
-        <%= other %> // <%= message %>
+    <script type="text/template" id="AuthorTemplate">
+		<clickAuthor><%= PCTITLE %> <%= PCFNAME %> <%= PCLNAME %></clickAuthor>
     </script>
+    <script type="text/template" id="UserTemplate">
+		<clickUser><%= PCTITLE %> <%= PCFNAME %> <%= PCLNAME %> </clickUser>
+		<%= PCEMAIL %> <%= PCPHONE %>
+    </script>
+    <script type="text/template" id="ParushTemplate">
+        <%= parush %>
+    </script>
+    <script type="text/template" id="TextTemplate">
+        <clickText><div id='TTtext' class='he' style='clear:both'><font face='Ezra Sil'><%= PCTEXT %></font></div></clickText><br>
+		<!--
+	    <div id='TTtranslation'><%= PCTRANSLATION %></div><br>
+        <div id='TTtransliteration'><%= PCTRANSLITERATION %></div><br>
+		<div id='TTparush'><%= PCPARUSH %></div>
+		-->
+    </script>
+    <script type="text/template" id="EventTemplate">
+		<%= title %> <%= institution %><br>
+        <%= startdate %> through <%= enddate %><br>
+		<%= starttime %> - <%= endtime %>
+    </script>
+	<script type="text/template" id="SubEventTemplate">
+		<%= title %> <%= institution %><br>
+        <%= startdate %> through <%= enddate %><br>
+		<%= starttime %> - <%= endtime %>
+    </script>
+	<script type="text/template" id="CitationTemplate">
+		<clickCitation>CITATION: <%= PCCITATION %></clickCitation> 
+    </script>
+	<script type="text/template" id="Menu2Template">
+		<clickMenu>MENU2: <%= PCLABEL %></clickMenu>
+    </script>
+
 	
     <!-- JavaScript -->
     <script src="js/jquery.min.js"></script>
     <script src="js/underscore-min.js"></script>
     <script src="js/backbone-min.js"></script>    
-    <script src="js/example_1MODEL.js"></script>
+	<script src="js/pearlModel.js"></script>
+	<script src="js/pearlView.js"></script>
+	<script src="js/pearlRouter.js"></script>
 
-</body>
+
 <script>
-var Sidebar = Backbone.Model.extend({
-	defaults: {
-		date: "December 1, 2013",
-		type: "strange"
-		},
-  promptColor: function() {
-    var cssColor = prompt("Please enter a CSS color:");
-    this.set({color: cssColor});
-  }
-});
+var dataRouter = new DataRouter();
+dataRouter.displayAuthor();
 
-window.sidebar = new Sidebar;
-
-alert(sidebar.get("date"));
-sidebar.on('change:color', function(model, color) {
-  $('#msg').css({background: color});
-});
-
-sidebar.set({color: 'white'});
-sidebar.set({date: 'December 15, 2013'});
-
-sidebar.promptColor();
-alert("before Stingify");
-alert(JSON.stringify(sidebar));
-alert(JSON.stringify(sidebar.previousAttributes()));
-alert("after");
-alert(sidebar.get("type"));
+//dataRouter.displayUser();
+//dataRouter.displayText();
+		
+//alert(Backbone.VERSION);
+Backbone.history.start();
 </script>
+</body>
 </html>
